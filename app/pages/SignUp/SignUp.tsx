@@ -2,11 +2,18 @@ import { useState } from "react";
 import Logo from "../../../public/adamas_logo.png"
 import { Eye, EyeOff } from "lucide-react";
 import { Footer } from "~/components/Footer/Footer";
+import { FormInput } from "~/components/Form/FormInput";
 
 
 export const SignUp = () => {
     const [showPassword, setShowPassword] = useState(false);
-    const [formData, setFormData] = useState({ email: '', password: '' });
+    const [formData, setFormData] = useState({
+        email: '',
+        password: '',
+        'confirm-password': '',
+        fullName: '',
+        phone: ''
+    });
 
     const handleSubmit = (e: any) => {
         e.preventDefault();
@@ -36,66 +43,57 @@ export const SignUp = () => {
 
                     <form className="space-y-5">
                         <div>
-                            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                                Nome
-                            </label>
-                            <input
+                           <FormInput
+                                label="Nome"
                                 type="text"
-                                id="name"
-                                name="name"
+                                id="fullName"
+                                name="fullName"
                                 value={formData.email}
                                 onChange={handleInputChange}
-                                placeholder="Ex: Adamastor"
-                                className="w-full px-4 py-1.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-colors bg-gray-50 focus:bg-white"
+                                placeholder="Ex: João da Silva"
                                 required
                             />
                         </div>
 
                         <div>
-                            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                                Telefone
-                            </label>
-                            <input
-                                type="tel"
-                                id="number"
-                                name="number"
+                            <FormInput
+                                label="Telefone"
+                                type="text"
+                                id="phone"
+                                name="phone"
                                 value={formData.email}
                                 onChange={handleInputChange}
                                 placeholder="Ex: (99) 99999-9999"
-                                className="w-full px-4 py-1.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-colors bg-gray-50 focus:bg-white"
                                 required
                             />
                         </div>     
 
                         <div>
-                            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                                Email
-                            </label>
-                            <input
+                            <FormInput
+                                label="Email"
                                 type="email"
                                 id="email"
                                 name="email"
                                 value={formData.email}
                                 onChange={handleInputChange}
                                 placeholder="Ex: (99) 99999-9999"
-                                className="w-full px-4 py-1.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-colors bg-gray-50 focus:bg-white"
                                 required
                             />
-                        </div>                   
+                        </div> 
 
                         <div>
                             <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
                                 Senha
                             </label>
                             <div className="relative">
-                                <input
+                                <FormInput
+                                    label=""
                                     type={showPassword ? "text" : "password"}
                                     id="password"
                                     name="password"
                                     value={formData.password}
                                     onChange={handleInputChange}
                                     placeholder="Digite sua senha"
-                                    className="w-full px-4 py-1.5 pr-12 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-colors bg-gray-50 focus:bg-white"
                                     required
                                 />
                                 <button
@@ -113,24 +111,21 @@ export const SignUp = () => {
                         </div>
 
                         <div>
-                            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
-                                Confirmar senha
-                            </label>
                             <div className="relative">
-                                <input
+                                <FormInput
+                                    label="Confirmar senha"
                                     type={showPassword ? "text" : "password"}
-                                    id="password"
-                                    name="password"
-                                    value={formData.password}
+                                    id="confirm-password"
+                                    name="confirm-password"
+                                    value={formData["confirm-password"]}
                                     onChange={handleInputChange}
                                     placeholder="Digite sua senha"
-                                    className="w-full px-4 py-1.5 pr-12 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-colors bg-gray-50 focus:bg-white"
                                     required
                                 />
                                 <button
                                     type="button"
                                     onClick={() => setShowPassword(!showPassword)}
-                                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                                    className="absolute right-3 top-12 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
                                 >
                                     {showPassword ? (
                                         <EyeOff className="w-5 h-5" />
@@ -145,7 +140,7 @@ export const SignUp = () => {
                             onClick={handleSubmit}
                             className="w-full bg-blue-950 hover:bg-blue-800 text-white font-medium py-3 mt-5 px-4 rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98]"
                         >
-                            Entrar
+                            Criar conta
                         </button>
                     </form>
 
