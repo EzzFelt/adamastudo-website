@@ -5,4 +5,5 @@ export default [
   route("/login", "routes/login.tsx"),
   route("/signup", "routes/signup.tsx"),
   route("/cronogram", "routes/cronogram.tsx"),
+  route("/service", "routes/service.tsx"),
 ] satisfies RouteConfig;
