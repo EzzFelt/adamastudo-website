@@ -1,161 +1,114 @@
-import { useState } from "react";
-import Logo from "../../../public/adamas_logo.png"
-import { Eye, EyeOff } from "lucide-react";
-import { Footer } from "~/components/Footer/Footer";
-import { FormInput } from "~/components/Form/FormInput";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router';
+import { useAuth } from '../../context/AuthContext';
 
+export default function SignUp() {
+  const navigate = useNavigate();
+  const { signup } = useAuth();
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    phone: '',
+  });
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
-export const SignUp = () => {
-    const [showPassword, setShowPassword] = useState(false);
-    const [formData, setFormData] = useState({
-        email: '',
-        password: '',
-        'confirm-password': '',
-        fullName: '',
-        phone: ''
-    });
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    setLoading(true);
 
-    const handleSubmit = (e: any) => {
-        e.preventDefault();
-        console.log('Login attempt:', formData);
-    };
+    try {
+      await signup(formData.name, formData.email, formData.password, formData.phone);
+      navigate('/');
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value
-        });
-    };
-
-    return(
-       <div className="min-h-screen">
-            <nav className="p-6">
-                <div className="flex items-center gap-2">
-                    <img src={Logo} alt="Adamas Logo" className="h-6 w-auto"/>
-                </div>
-            </nav>
-            
-            <main className="flex justify-center items-center px-6 border-t-1 border-gray-800 ml-5 mr-5" style={{ minHeight: 'calc(100vh - 100px)' }}>
-                <div className="w-full max-w-md bg-white rounded-2xl p-8 mt-10">
-                    <div className="text-center mb-8">
-                        <h1 className="text-3xl font-bold text-gray-900 mb-2 text-start">Crie sua conta</h1>
-                    </div>
-
-                    <form className="space-y-5">
-                        <div>
-                           <FormInput
-                                label="Nome"
-                                type="text"
-                                id="fullName"
-                                name="fullName"
-                                value={formData.email}
-                                onChange={handleInputChange}
-                                placeholder="Ex: João da Silva"
-                                required
-                            />
-                        </div>
-
-                        <div>
-                            <FormInput
-                                label="Telefone"
-                                type="text"
-                                id="phone"
-                                name="phone"
-                                value={formData.email}
-                                onChange={handleInputChange}
-                                placeholder="Ex: (99) 99999-9999"
-                                required
-                            />
-                        </div>     
-
-                        <div>
-                            <FormInput
-                                label="Email"
-                                type="email"
-                                id="email"
-                                name="email"
-                                value={formData.email}
-                                onChange={handleInputChange}
-                                placeholder="Ex: (99) 99999-9999"
-                                required
-                            />
-                        </div> 
-
-                        <div>
-                            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
-                                Senha
-                            </label>
-                            <div className="relative">
-                                <FormInput
-                                    label=""
-                                    type={showPassword ? "text" : "password"}
-                                    id="password"
-                                    name="password"
-                                    value={formData.password}
-                                    onChange={handleInputChange}
-                                    placeholder="Digite sua senha"
-                                    required
-                                />
-                                <button
-                                    type="button"
-                                    onClick={() => setShowPassword(!showPassword)}
-                                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
-                                >
-                                    {showPassword ? (
-                                        <EyeOff className="w-5 h-5" />
-                                    ) : (
-                                        <Eye className="w-5 h-5" />
-                                    )}
-                                </button>
-                            </div>
-                        </div>
-
-                        <div>
-                            <div className="relative">
-                                <FormInput
-                                    label="Confirmar senha"
-                                    type={showPassword ? "text" : "password"}
-                                    id="confirm-password"
-                                    name="confirm-password"
-                                    value={formData["confirm-password"]}
-                                    onChange={handleInputChange}
-                                    placeholder="Digite sua senha"
-                                    required
-                                />
-                                <button
-                                    type="button"
-                                    onClick={() => setShowPassword(!showPassword)}
-                                    className="absolute right-3 top-12 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
-                                >
-                                    {showPassword ? (
-                                        <EyeOff className="w-5 h-5" />
-                                    ) : (
-                                        <Eye className="w-5 h-5" />
-                                    )}
-                                </button>
-                            </div>
-                        </div>
-
-                        <button
-                            onClick={handleSubmit}
-                            className="w-full bg-blue-950 hover:bg-blue-800 text-white font-medium py-3 mt-5 px-4 rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98]"
-                        >
-                            Criar conta
-                        </button>
-                    </form>
-
-                    <p className="text-center text-gray-600 text-sm mt-6">
-                        Já possui uma conta?{' '}
-                        <a 
-                            href="#" 
-                            className="text-indigo-600 hover:text-indigo-800 font-medium transition-colors"
-                        >
-                            Entre na sua conta →
-                        </a>
-                    </p>
-                </div>
-            </main>
-          <Footer/>
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center px-6">
+      <div className="bg-white rounded-3xl p-8 md:p-12 shadow-xl max-w-md w-full">
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Criar Conta</h1>
+          <p className="text-gray-600">Preencha seus dados para começar</p>
         </div>
-    )
+
+        {error && (
+          <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl">
+            <p className="text-red-600 text-sm">{error}</p>
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Nome completo</label>
+            <input
+              type="text"
+              required
+              value={formData.name}
+              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-yellow-400 focus:outline-none transition-colors"
+              placeholder="Seu nome"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
+            <input
+              type="email"
+              required
+              value={formData.email}
+              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-yellow-400 focus:outline-none transition-colors"
+              placeholder="seu@email.com"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Telefone</label>
+            <input
+              type="tel"
+              required
+              value={formData.phone}
+              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+              className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-yellow-400 focus:outline-none transition-colors"
+              placeholder="(00) 00000-0000"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Senha</label>
+            <input
+              type="password"
+              required
+              value={formData.password}
+              onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+              className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-yellow-400 focus:outline-none transition-colors"
+              placeholder="••••••••"
+              minLength={6}
+            />
+          </div>
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full py-4 bg-yellow-400 text-gray-900 rounded-full text-lg font-semibold hover:bg-yellow-500 transition-all hover:shadow-lg disabled:opacity-50"
+          >
+            {loading ? 'Criando conta...' : 'Criar conta'}
+          </button>
+        </form>
+
+        <p className="text-center mt-6 text-gray-600">
+          Já tem uma conta?{' '}
+          <a href="/login" className="text-yellow-600 font-medium hover:text-yellow-700">
+            Faça login
+          </a>
+        </p>
+      </div>
+    </div>
+  );
 }
