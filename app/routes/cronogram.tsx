@@ -1,5 +1,5 @@
 import type { Route } from "./+types/home";
-import { Cronogram } from "../pages/Cronogram/Cronogram";
+import  Cronogram  from "../pages/Cronogram/Cronogram";
 
 export function meta({}: Route.MetaArgs) {
   return [

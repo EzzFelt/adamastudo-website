@@ -1,5 +1,4 @@
-// import type { Route } from "./+types/login";
-import { Login } from "../pages/Login/Login";
+import Login from "../pages/Login/Login";
 
 export function meta() {
   return [

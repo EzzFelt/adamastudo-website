@@ -1,5 +1,5 @@
 
-import { SignUp } from "~/pages/SignUp/SignUp";
+import SignUp from "~/pages/SignUp/SignUp";
 
 export function meta() {
   return [
