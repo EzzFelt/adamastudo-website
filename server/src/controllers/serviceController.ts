@@ -1,6 +1,6 @@
 import type { Response } from 'express';
-import { prisma } from '../config/database';
-import type { AuthRequest } from '../middleware/auth';
+import { prisma } from '../config/database.js';
+import type { AuthRequest } from '../middleware/auth.js';
 
 export const getAllServices = async (_req: AuthRequest, res: Response) => {
   try {
