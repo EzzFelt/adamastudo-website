@@ -5,8 +5,8 @@ import {
   createService,
   updateService,
   deleteService,
-} from '../controllers/serviceController';
-import { authenticate, isAdmin } from '../middleware/auth';
+} from '../controllers/serviceController.js';
+import { authenticate, isAdmin } from '../middleware/auth.js';
 
 const router = Router();
 

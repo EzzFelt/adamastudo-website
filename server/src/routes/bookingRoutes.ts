@@ -8,8 +8,8 @@ import {
   markAsNotified,
   getModifiedBookings,
   getAllBookingsHistory,
-} from '../controllers/bookingController';
-import { authenticate, isAdmin } from '../middleware/auth';
+} from '../controllers/bookingController.js';
+import { authenticate, isAdmin } from '../middleware/auth.js';
 
 const router = Router();
 
