@@ -40,4 +40,21 @@ const startServer = async () => {
   }
 };
 
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://adamastudo.vercel.app',
+  'https://adamastudo-git-main-seu-usuario.vercel.app', 
+];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+}));
+
 startServer();

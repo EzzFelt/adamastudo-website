@@ -22,7 +22,8 @@ export default function History() {
   const fetchHistory = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:3001/api/bookings/history', {
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+      const response = await fetch(`${API_URL}/api/bookings/history`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },

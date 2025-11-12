@@ -33,7 +33,8 @@ export default function MyServices() {
   const fetchMyBookings = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:3001/api/bookings/my-bookings', {
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+      const response = await fetch(`${API_URL}/api/bookings/my-bookings`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -59,7 +60,8 @@ export default function MyServices() {
 
     try {
       setCancellingId(bookingId);
-      const response = await fetch(`http://localhost:3001/api/bookings/${bookingId}/cancel`, {
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+      const response = await fetch(`${API_URL}/api/bookings/${bookingId}/cancel`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

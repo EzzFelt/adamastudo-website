@@ -21,7 +21,8 @@ export default function ServiceList() {
   const fetchServices = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:3001/api/services');
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+      const response = await fetch(`${API_URL}/api/services`);
       const data = await response.json();
       setServices(data);
     } catch (error) {

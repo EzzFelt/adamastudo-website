@@ -26,8 +26,9 @@ export default function Cronogram() {
       setLoading(true);
       const startOfWeek = getStartOfWeek(selectedWeek);
       
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
       const response = await fetch(
-        `http://localhost:3001/api/bookings/schedule/weekly?startDate=${startOfWeek.toISOString()}`,
+        `${API_URL}/api/bookings/weekly-schedule?startDate=${startOfWeek.toISOString()}`,
         {
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -302,7 +303,8 @@ const EditBookingModal: React.FC<EditBookingModalProps> = ({ booking, onClose, o
     setError('');
 
     try {
-      const response = await fetch(`http://localhost:3001/api/bookings/${booking.id}`, {
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001'
+      const response = await fetch(`${API_URL}/api/bookings/${booking.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

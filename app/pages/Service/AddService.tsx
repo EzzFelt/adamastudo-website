@@ -60,7 +60,8 @@ export default function AddService() {
     setError('');
 
     try {
-      const response = await fetch('http://localhost:3001/api/services', {
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001'
+      const response = await fetch(`${API_URL}/api/services`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
