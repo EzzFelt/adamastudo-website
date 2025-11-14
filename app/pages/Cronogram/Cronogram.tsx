@@ -28,7 +28,7 @@ export default function Cronogram() {
       
       const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
       const response = await fetch(
-        `${API_URL}/api/bookings/weekly-schedule?startDate=${startOfWeek.toISOString()}`,
+       `${API_URL}/api/bookings/schedule/weekly?startDate=${startOfWeek.toISOString()}`,
         {
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -66,6 +66,7 @@ export default function Cronogram() {
   };
 
   const getBookingsForDay = (date: Date) => {
+    if (!Array.isArray(bookings)) return [];
     return bookings.filter((booking) => {
       const bookingDate = new Date(booking.scheduledDate);
       return (
